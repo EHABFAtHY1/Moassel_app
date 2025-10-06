@@ -34,7 +34,7 @@ app.use(helmet({
   crossOriginResourcePolicy: { policy: 'cross-origin' },
   contentSecurityPolicy: false
 }));
-app.use(morgan('dev'));
+
 
 // // Dev logging
 // if (process.env.NODE_ENV === 'development') {
