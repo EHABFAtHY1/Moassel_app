@@ -39,16 +39,16 @@ const app = express();
 // }
 
 // Limit requests from same IP
-// app.use(
-//   '/api',
-//   rateLimit({
-//     windowMs: 60 * 60 * 1000, // 1 hour
-//     max: 100,
-//     message: 'Too many requests from this IP, please try again in an hour!',
-//     standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
-//     legacyHeaders: false, // Disable the `X-RateLimit-*` headers
-//   })
-// );
+app.use(
+  '/api',
+  rateLimit({
+    windowMs: 60 * 60 * 1000, // 1 hour
+    max: 100,
+    message: 'Too many requests from this IP, please try again in an hour!',
+    standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+    legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+  })
+);
 
 // CORS + cookies (قبل الراوترات)
 app.use(cors({
@@ -76,8 +76,8 @@ app.use(mongoSanitize());
 // // Prevent parameter pollution (عدّل الـwhitelist حسب مشروعك)
 
 // // Static files
-// app.use(express.static(path.join(__dirname, 'public')));
-// app.use('/src/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/src/uploads', express.static(path.join(__dirname, 'uploads')));
 
 
 
@@ -94,7 +94,7 @@ app.use('/api/v1/problems', problemRoutes);
 app.use('/api/v1/resources', resourceBookRoutes);
 
 
-404 handler for unknown routes
+
 app.all('*', (req, _res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 });
