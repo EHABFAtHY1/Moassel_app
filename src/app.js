@@ -30,25 +30,27 @@ const app = express();
 
 // /* ------------------------- 1) GLOBAL MIDDLEWARES ------------------------- */
 // // Security headers
-// app.use(helmet({
-//   crossOriginResourcePolicy: { policy: 'cross-origin' },
-//   contentSecurityPolicy: false
-// }));
+app.use(helmet({
+  crossOriginResourcePolicy: { policy: 'cross-origin' },
+  contentSecurityPolicy: false
+}));
+app.use(morgan('dev'));
 
 // // Dev logging
 // if (process.env.NODE_ENV === 'development') {
-//   app.use(morgan('dev'));
 // }
 
-// // Limit requests from same IP
-// app.use(
-//   '/api',
-//   rateLimit({
-//     max: 100,
-//     windowMs: 60 * 60 * 1000, // 1h
-//     message: 'Too many requests from this IP, please try again in an hour!',
-//   })
-// );
+// Limit requests from same IP
+app.use(
+  '/api',
+  rateLimit({
+    windowMs: 60 * 60 * 1000, // 1 hour
+    max: 100,
+    message: 'Too many requests from this IP, please try again in an hour!',
+    standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+    legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+  })
+);
 
 // CORS + cookies (قبل الراوترات)
 app.use(cors({
@@ -70,16 +72,16 @@ app.use(express.json());
 // app.use(express.urlencoded({ extended: true }));
 
 // // NoSQL injection
-// app.use(mongoSanitize());
+app.use(mongoSanitize());
 
-// // XSS
-// app.use(xss());
+// XSS
+app.use(xss());
 
 // // Prevent parameter pollution (عدّل الـwhitelist حسب مشروعك)
 
 // // Static files
-// app.use(express.static(path.join(__dirname, 'public')));
-// app.use('/src/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/src/uploads', express.static(path.join(__dirname, 'uploads')));
 
 
 
@@ -93,8 +95,7 @@ app.use('/api/v1/bookmarks', bookmarkRoutes);
 app.use('/api/v1/chapters', chapterRoutes);
 app.use('/api/v1/exercises', exercisesRoutes);
 app.use('/api/v1/problems', problemRoutes);
-
-app.use('/api/v1/resource-books', resourceBookRoutes);
+app.use('/api/v1/resources', resourceBookRoutes);
 
 
 // 404 handler for unknown routes
