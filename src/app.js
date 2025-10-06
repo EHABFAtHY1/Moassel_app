@@ -40,7 +40,7 @@ const app = express();
 
 // Limit requests from same IP
 app.use(
-  '/api',
+  '/',
   rateLimit({
     windowMs: 60 * 60 * 1000, // 1 hour
     max: 100,
