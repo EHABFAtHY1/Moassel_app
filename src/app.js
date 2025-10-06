@@ -95,9 +95,9 @@ app.use('/api/v1/resources', resourceBookRoutes);
 
 
 
-app.all('*', (req, _res, next) => {
-  next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
-});
+// app.all('*', (req, _res, next) => {
+//   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
+// });
 app.use(globalErrorHandler);
 
 process.on('uncaughtException', (err) => {
