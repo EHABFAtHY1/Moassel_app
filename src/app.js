@@ -74,8 +74,6 @@ app.use(express.json());
 // // NoSQL injection
 app.use(mongoSanitize());
 
-// XSS
-app.use(xss());
 
 // // Prevent parameter pollution (عدّل الـwhitelist حسب مشروعك)
 
