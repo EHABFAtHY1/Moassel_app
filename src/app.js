@@ -25,30 +25,27 @@ const resourceBookRoutes = require('./routes/resourceBook.routes');
 
 
 const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // /* ------------------------- 1) GLOBAL MIDDLEWARES ------------------------- */
 // // // Security headers
-// app.use(helmet({
-//   crossOriginResourcePolicy: { policy: 'cross-origin' },
-//   contentSecurityPolicy: false
-// }));
+app.use(helmet({
+  crossOriginResourcePolicy: { policy: 'cross-origin' },
+  contentSecurityPolicy: false
+}));
 
 
-// // Dev logging
-// if (process.env.NODE_ENV === 'development') {
-// }
-
-// Limit requests from same IP
-// app.use(
-//   '/',
-//   rateLimit({
-//     windowMs: 60 * 60 * 1000, // 1 hour
-//     max: 100,
-//     message: 'Too many requests from this IP, please try again in an hour!',
-//     standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
-//     legacyHeaders: false, // Disable the `X-RateLimit-*` headers
-//   })
-// );
+app.use(
+  '/',
+  rateLimit({
+    windowMs: 60 * 60 * 1000, // 1 hour
+    max: 100,
+    message: 'Too many requests from this IP, please try again in an hour!',
+    standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+    legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+  })
+);
 
 // CORS + cookies (قبل الراوترات)
 app.use(cors({
@@ -58,7 +55,6 @@ app.use(cors({
 app.use(cookieParser());
 
 // Body parser
-app.use(express.json());
 // const { createIndexes } = require('./utils/elastic'); // استيراد الدالة الخاصة بإنشاء الفهارس
 
 // // تشغيل Elasticsearch لضمان إنشاء الفهارس قبل بدء التطبيق
