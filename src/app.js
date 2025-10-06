@@ -69,8 +69,8 @@ app.use(express.json());
 // });
 // app.use(express.urlencoded({ extended: true }));
 
-// // NoSQL injection
-app.use(mongoSanitize());
+// // // NoSQL injection
+// app.use(mongoSanitize());
 
 
 // // Prevent parameter pollution (عدّل الـwhitelist حسب مشروعك)
