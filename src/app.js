@@ -27,11 +27,11 @@ const resourceBookRoutes = require('./routes/resourceBook.routes');
 const app = express();
 
 // /* ------------------------- 1) GLOBAL MIDDLEWARES ------------------------- */
-// // Security headers
-app.use(helmet({
-  crossOriginResourcePolicy: { policy: 'cross-origin' },
-  contentSecurityPolicy: false
-}));
+// // // Security headers
+// app.use(helmet({
+//   crossOriginResourcePolicy: { policy: 'cross-origin' },
+//   contentSecurityPolicy: false
+// }));
 
 
 // // Dev logging
