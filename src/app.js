@@ -4,8 +4,6 @@ const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
-const xss = require('xss-clean');
-const hpp = require('hpp');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const path = require('node:path');
@@ -96,10 +94,10 @@ app.use('/api/v1/problems', problemRoutes);
 app.use('/api/v1/resources', resourceBookRoutes);
 
 
-// 404 handler for unknown routes
-// app.all('*', (req, _res, next) => {
-//   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
-// });
+404 handler for unknown routes
+app.all('*', (req, _res, next) => {
+  next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
+});
 app.use(globalErrorHandler);
 
 process.on('uncaughtException', (err) => {
