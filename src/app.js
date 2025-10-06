@@ -39,16 +39,16 @@ const app = express();
 // }
 
 // Limit requests from same IP
-app.use(
-  '/',
-  rateLimit({
-    windowMs: 60 * 60 * 1000, // 1 hour
-    max: 100,
-    message: 'Too many requests from this IP, please try again in an hour!',
-    standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
-    legacyHeaders: false, // Disable the `X-RateLimit-*` headers
-  })
-);
+// app.use(
+//   '/',
+//   rateLimit({
+//     windowMs: 60 * 60 * 1000, // 1 hour
+//     max: 100,
+//     message: 'Too many requests from this IP, please try again in an hour!',
+//     standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+//     legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+//   })
+// );
 
 // CORS + cookies (قبل الراوترات)
 app.use(cors({
