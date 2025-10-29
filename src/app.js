@@ -40,16 +40,16 @@ app.use(express.urlencoded({ extended: true }));
 // }));
 
 
-// app.use(
-//   '/',
-//   rateLimit({
-//     windowMs: 60 * 60 * 1000, // 1 hour
-//     max: 100,
-//     message: 'Too many requests from this IP, please try again in an hour!',
-//     standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
-//     legacyHeaders: false, // Disable the `X-RateLimit-*` headers
-//   })
-// );
+app.use(
+  '/',
+  rateLimit({
+    windowMs: 60 * 60 * 1000, // 1 hour
+    max: 100,
+    message: 'Too many requests from this IP, please try again in an hour!',
+    standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+    legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+  })
+);
 
 // CORS + cookies (قبل الراوترات)
 app.use(cookieParser());
@@ -93,7 +93,7 @@ app.use('/api/v1/resources', resourceBookRoutes);
 
 app.all('*', (req, _res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
-// });
+ });
 app.use(globalErrorHandler);
 
 process.on('uncaughtException', (err) => {
