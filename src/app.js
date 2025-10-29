@@ -27,7 +27,7 @@ const resourceBookRoutes = require('./routes/resourceBook.routes');
 const app = express();
 app.use(cors({
   origin: '*',
-  credentials: true
+  credentials: false
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
