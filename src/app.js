@@ -25,10 +25,7 @@ const resourceBookRoutes = require('./routes/resourceBook.routes');
 
 
 const app = express();
-app.use(cors({
-  origin: '*',
-  credentials: false
-}));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -52,6 +49,10 @@ app.use(
 );
 
 // CORS + cookies (قبل الراوترات)
+app.use(cors({
+  origin: '*',
+  credentials: false
+}));
 app.use(cookieParser());
 
 // Body parser
